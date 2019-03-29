@@ -1,0 +1,100 @@
+<!-- MENU LATERAL IZQUIERDO DE NAVEGACION -->
+​<link href="../font/style.css" rel="stylesheet"/>
+<!-- begin #sidebar -->
+<div id="sidebar" class="sidebar sidebar-right" style="background-color:#0b2d2f;    ">
+
+    <!-- begin sidebar scrollbar -->
+    <div data-scrollbar="true" data-height="100%">
+        <!-- begin sidebar user -->
+        <ul class="nav">
+            <li class="nav-profile"  style="background-color:#0b2d2f;    ">
+
+
+
+            </li>
+        </ul>
+        <!-- end sidebar user -->
+        ​
+        <!-- begin sidebar nav -->
+        <ul class="nav">
+            ​
+            <li class="has-sub" id="sidebarHome"> <!-- Home -->
+                <a href="<?php echo $lvlroot ?>Home">
+
+                    <i class="fa fa-2x fa-home"></i>
+                    <span>INICIO</span>
+                </a>
+            </li> <!-- End Home -->
+
+            <li class="has-sub" id="sidebarIngresoMercancia"> <!-- Ingreso Mercancía -->
+                <a href="<?php echo $lvlroot;?>Reportes/vehiculominuto/">
+                    <i><span class="glyphicon glyphicon-screenshot"></span></i>
+
+                    <span>REPORTES</span>
+                </a> 
+           
+
+            </li> <!-- End Pantallas -->
+
+            <li id="sidebarInformes"> <!-- Informes -->
+                <a href="<?php  echo $lvlroot;?>Camaras/index.php">
+                    <i><span class="glyphicon glyphicon-camera"></span></i>
+                    <span>CÁMARAS</span>
+                </a>
+            </li> <!-- End registro -->
+
+            <li class="has-sub" id="sidebarAdminUsuarios"> <!-- Begin Admin Usuarios -->
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-users"></i>
+                    <span>ADMIN DE USUARIOS</span>
+                </a>
+                <ul class="sub-menu"  style="background-color:#0b2d2f;    ">
+
+                    <li id="sidebarAdminUsuarios-CrearUsuario">
+                        <a href="<?php echo $lvlroot ?>RegistroUsuarios/crearUsuario/index.php">
+                            Crear Usuario
+                        </a>
+                    </li>
+                    <li id="sidebarAdminUsuarios-EditarUsuario">
+                        <a href="#">
+                            Editar Usuario
+                        </a>
+                    </li>
+
+                </ul>
+            </li> <!-- End Usuarios -->
+
+            <li class="has-sub" id="sidebarHome"> <!-- ayuda -->
+                <a href="<?php echo $lvlroot ?>Ayuda">
+                    <i><span class="glyphicon glyphicon-exclamation-sign"></span></i>
+                    <span>AYUDA</span>
+                </a>
+            </li><!-- End ayuda -->
+
+            <li class="has-sub" id="sidebarHome"> <!-- Home -->
+                <a href="<?php echo $lvlroot ?>Home/exit.php">
+                    <i><span class="glyphicon glyphicon-off"></span></i>
+                    <span>CERRAR SESIÓN</span>
+                </a>
+            </li>
+
+
+            ​
+
+
+
+
+            </li> <!-- End Empty -->
+            ​
+
+            <!-- begin sidebar minify button -->
+            <!--<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>-->
+            <!-- end sidebar minify button -->
+        </ul>
+        <!-- end sidebar nav -->
+    </div>
+    <!-- end sidebar scrollbar -->
+</div>
+<div class="sidebar-bg"></div>
+<!-- end #sidebar -->

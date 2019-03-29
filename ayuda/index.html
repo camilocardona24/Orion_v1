@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documento sin título</title>
+</head>
+<style>
+*{margin:0;
+padding:0;
+	}
+	
+@font-face {
+    font-family:myriad;
+    src:url(../font/MyriadPro-BoldCond.otf);
+}
+@font-face {
+    font-family:myriadcond;
+    src:url(../font/MyriadPro-Cond.otf);
+}
+	
+#container{
+	width:100%;
+	height:100vh;
+	background-color:#C4E8E4;
+	}
+	
+header {
+	width:100%;
+	height:80px;
+	background-color:#086F77;
+	color:white;
+	position:fixed;
+	top:0;
+	left:0;
+	}
+	
+#logo{
+	
+	width:80%;
+	height:81px;
+	background-image:url(../assets/img/logottayuda-03.png);
+	display:inline-block;
+	vertical-align:middle;
+	background-repeat:no-repeat;
+	}
+	
+.menu{
+	display:inline-block;
+	vertical-align:middle;
+	}	
+	
+a{
+	font-family:myriad;
+	text-decoration:none;
+	color:white;
+	border-left:solid 1px #93BF1F;
+	padding:0 0 0 10px; 
+	}
+	
+a:hover{
+	font-family:myriad;
+	text-decoration:none;
+	color:#93BF1F;
+	border-left:solid 1px #93BF1F;
+	padding:0 0 0 10px; 
+	}
+
+.pdf{
+	width:50%;
+	height:100%;
+	display:block;
+	margin:80px auto 0 auto;
+	}
+	
+@media(max-width:1024px) {
+	
+#logo{
+	
+	width:70%;
+	height:80px;
+	background-image:url(../assets/img/logoresponsive-01.png);
+	}	
+	
+	}
+
+	
+
+	
+
+	
+</style>
+
+<body>
+    <div id="container">
+    	 <header>
+         	<div id="logo"></div>
+       		<nav class="menu">
+            	<a href="../index.php">INICIO</a>
+            </nav>
+         </header>
+		 <div class="pdf">
+                    <embed src="Manual_Usuario_Orion.pdf" width="100%" height="100%">
+         </div>
+    </div>
+</body>
+</html>

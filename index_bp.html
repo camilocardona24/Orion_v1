@@ -1,0 +1,285 @@
+
+<?php
+include ("assets/php/start_session.php"); //Para hacer el LogIn en el App
+?>
+<?php
+$enable;
+if (isset($_POST['username'])) {
+    $user = $_POST['username'];
+    $passwrd = $_POST['password'];
+     $enable = userlogin($user, $passwrd);
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="authoring-tool" content="Adobe_Animate_CC">
+        <title>Plataforma Punto Logístico</title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+
+        <!-- ================== BEGIN BASE CSS STYLE ================== -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+        <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="assets/css/animate.min.css" rel="stylesheet" />
+        <link href="assets/css/style.min.css" rel="stylesheet" />
+        <link href="assets/css/style-responsive.min.css" rel="stylesheet" />
+        <link href="assets/css/theme/blue.css" rel="stylesheet" id="theme" />
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet"/>
+        <!-- ================== END BASE CSS STYLE ================== -->
+
+        <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+        <script src="assets/plugins/parsley/src/parsley.css" rel="stylesheet"></script>
+        <!-- ================== END PAGE LEVEL STYLE  ================== -->
+
+        <!-- ================== BEGIN BASE JS ================== -->
+        <script src="assets/plugins/pace/pace.min.js"></script>
+        <!-- ================== END BASE JS ================== -->
+       
+        <script src="assets/js/createjs-2015.11.26.min.js"></script>
+        <!--animacion-canvas-->
+        
+<script src="animacionPTV.js"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("BAE36A1AED5B8B47907AC3D8B72961EC");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.fondofinal();
+	stage = new lib.Stage(canvas);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	function makeResponsive(isResp, respDim, isScale, scaleType) {		
+		var lastW, lastH, lastS=1;		
+		window.addEventListener('resize', resizeCanvas);		
+		resizeCanvas();		
+		function resizeCanvas() {			
+			var w = lib.properties.width, h = lib.properties.height;			
+			var iw = window.innerWidth, ih=window.innerHeight;			
+			var pRatio = window.devicePixelRatio || 1, xRatio=iw/w, yRatio=ih/h, sRatio=1;			
+			if(isResp) {                
+				if((respDim=='width'&&lastW==iw) || (respDim=='height'&&lastH==ih)) {                    
+					sRatio = lastS;                
+				}				
+				else if(!isScale) {					
+					if(iw<w || ih<h)						
+						sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==1) {					
+					sRatio = Math.min(xRatio, yRatio);				
+				}				
+				else if(scaleType==2) {					
+					sRatio = Math.max(xRatio, yRatio);				
+				}			
+			}			
+			canvas.width = w*pRatio*sRatio;			
+			canvas.height = h*pRatio*sRatio;
+			canvas.style.width = dom_overlay_container.style.width = anim_container.style.width =  w*sRatio+'px';				
+			canvas.style.height = anim_container.style.height = dom_overlay_container.style.height = h*sRatio+'px';
+			stage.scaleX = pRatio*sRatio;			
+			stage.scaleY = pRatio*sRatio;			
+			lastW = iw; lastH = ih; lastS = sRatio;            
+			stage.tickOnUpdate = false;            
+			stage.update();            
+			stage.tickOnUpdate = true;		
+		}
+	}
+	makeResponsive(true,'both',true,1);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<!--fin-animacion-canvas-->
+    </head>
+    <body class="pace-top bg-white">
+        <!-- begin #page-loader -->
+        <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+        <!-- end #page-loader -->
+
+        <!-- begin #page-container -->
+        <div id="page-container" class="fade">
+            <!-- begin login -->
+            <div class="login login-with-news-feed">
+                <!-- begin news-feed -->
+                
+                 <!--<div class="news-feed">
+                    <div class="news-image">
+                        <img src="assets/img/login-bg/fondowms.jpg" data-id="login-cover-image" alt="" />
+			  </div>
+                    <div class="news-caption">
+                        <h4 class="caption-title"><i class="fa fa-diamond text-primary"></i> M E R C U R Y</h4>
+                        <p>
+                            Software para el control de inventario en desarrollado por <a href="http://www.inter-telco.com" target="_blank" class="text-primary"> Inter-Telco S.A.S  <i class="fa fa-wifi"></i>  </a>
+                        </p>
+
+                    </div>
+                </div>
+                <!-- end news-feed --> 
+                <div class="textoylogo">
+                	<h1 class="logoalcaldia"></h1>
+                	<h2 class="titulo">BIENVENIDO</h2>
+                	<p>Esta aplicación está diseñada para calcular los tiempos de viaje de un dispositivo sensado entre dos puntos, agregar e identificar los sensores de forma gráfica y crear rutad virtuales entre los dos sensores en que se desea sensar el tiempo de viaje.</p>
+                	
+                </div>
+                <!--animacion-canvas-->
+                <div id="animacion">
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1920px; height:550px">
+		<canvas id="canvas" width="1920" height="550" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1920px; height:550px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
+</body>
+</div>
+<!--fin-animacion-canvas-->
+                <!-- begin right-content -->
+                <div class="right-content">
+                    <!-- begin login-header -->
+                    <div class="login-header">
+                        <div class="brand">
+                          
+                            <small></small>
+                        </div>
+                      
+                    </div>
+                    <!-- end login-header -->
+                    <!-- begin login-content -->
+                    <div class="login-content">
+                        <form data-parsley-validate="true" id="loginForm" action="" method="POST" class="margin-bottom-0">
+                            <div class="form-group m-b-15">
+                                <input type="text" name="username" id="username" data-parsley-type="alphanum" class="form-control input-lg" data-parsley-length="[3, 15]" placeholder="Nombre de usuario" required/>
+                            </div>
+                            <div class="form-group m-b-15">
+                                <input type="password" name="password" id="password" class="form-control input-lg" data-parsley-length="[4, 15]" placeholder="Contraseña"  required />
+                            </div>
+
+                            <div class="login-buttons">
+                                <button type="submit" id="botonenvio" class="btn btn-primary btn-block btn-lg">Iniciar sesión</button>
+                            </div>
+                            <div class="m-t-20 m-b-40">
+                                Olvidaste tú contraseña? Click <a href="#" class="text-primary"onclick="fillDriversData();">aquí</a> para recuperarla.
+                            </div>
+                            <a class="Ayuda" href="ayuda/index.html"> <span class="glyphicon glyphicon-info-sign"></span> Ayuda</a>
+				        <div class="checkbox m-b-30">
+
+                            </div>
+
+                            <?php
+                            if ($enable == "false") {
+                                ?>
+                                <div class="alert alert-danger alert-dismissable " style="margin-top:25px;" >
+                                    <i class="fa fa-ban"></i>
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <b>Alerta: </b> Usuario y/o contraseña incorrecta.
+                                </div>
+    <?php
+}
+?>
+                           
+                            <p class="text-center text-inverse">
+
+                            </p>
+                        </form>
+                         <div id="logoalcaldiados"><img src="assets/img/logoalcaldialogin-01.png"</div>
+                    </div>
+                    <!-- end login-content -->
+                </div>
+                <!-- end right-container -->
+            </div>
+            <!-- end login -->
+        </div>
+        <!-- end page container -->
+
+
+        <!-- ================== BEGIN BASE JS ================== -->
+        <script src="assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+        <script src="assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+        <script src="assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/parsley/dist/parsley.js"></script>
+
+        <!--[if lt IE 9]>
+                <script src="assets/crossbrowserjs/html5shiv.js"></script>
+                <script src="assets/crossbrowserjs/respond.min.js"></script>
+                <script src="assets/crossbrowserjs/excanvas.min.js"></script>
+        <![endif]-->
+        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+	  <script type="text/javascript" src="assets/js/validations.js"></script>
+
+        <!-- ================== END BASE JS ================== -->
+
+        <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+        <script src="assets/js/apps.min.js"></script>
+        <!-- ================== END PAGE LEVEL JS ================== -->
+
+        <script>
+            $(document).ready(function () {
+                App.init();
+                $('[data-parsley-validate="true"]').parsley();
+            });
+        </script>
+
+	  <script type="text/javascript">
+
+		function fillDriversData()
+		{
+			var url = 'assets/php/driverData.php';
+			var width = '610';
+			var height = '470';
+			var windowSize = 'width='+width+',height='+height;
+			window.open(url,'Datos del conductor',windowSize);
+		};
+
+	  </script>
+
+
+
+	  <script type="text/javascript">
+    function showContent() {
+        element = document.getElementById("content");
+        check = document.getElementById("check");
+        if (check.checked) {
+            element.style.display='block';
+        }
+        else {
+            element.style.display='none';
+        }
+    }
+</script>
+
+
+    </body>
+</html>
+
